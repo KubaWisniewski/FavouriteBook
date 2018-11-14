@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Book edit</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="fragments/adminDashMenu">MENU</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            <h1>Edit producer</h1>
+            <form th:action="@{/books/edit}" method="post" th:object="${book}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Title</label>
+                    <input id="name" type="text" class="form-control" th:field="*{title}"/>
+                </div>
+
+                <div class="form-group">
+                    <p><label class="h2 text-success" for="author">Author</label></p>
+                    <select id="author" th:field="${book.author.id}">
+                        <option th:each="p : ${authors}" th:value="${p.id}"
+                                th:text="${p.getName()+p.getSurname()}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input id="photo" type="file" class="form-control" th:field="*{multipartFile}"/>
+                </div>
+                <input type="text" th:field="*{id}" hidden="hidden" readonly="readonly"/>
+                <input type="text" th:field="*{photo}" hidden="hidden" readonly="readonly"/>
+                <div>
+                    <button class="btn btn-success btn-lg" type="submit">MODIFY</button>
+                    <button class="btn btn-success btn-lg" type="reset">RESET</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>
